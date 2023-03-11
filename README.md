@@ -1,2 +1,2 @@
 # terraform-aws
-Terraform setup templates to deploy ec2 instances on aws
+Terraform setup templates to deploy various resources on aws
