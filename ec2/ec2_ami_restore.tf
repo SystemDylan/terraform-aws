@@ -14,8 +14,9 @@ data "aws_ami" "ec2web" {
 resource "aws_instance" "ec2web" {
   ami           = "${var.custom_ami_id}"
   instance_type = "t2.micro"
+  subnet_id = var.subnet2_id
   vpc_security_group_ids = [
-    var.security_group_id,
+    var.security_group1_id,
   ]
   tags = {
     Name = "ec2_web"
