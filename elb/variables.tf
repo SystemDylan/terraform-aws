@@ -19,3 +19,6 @@ variable "custom_ami_id" {
 variable "vpc_id" {
   type = string
 }
+variable "keyname" {
+  type = string
+}
