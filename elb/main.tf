@@ -14,7 +14,7 @@ resource "aws_autoscaling_group" "asg1" {
   desired_capacity = 2
 
   # Define the health check settings
-  health_check_type = "ELB"
+  health_check_type = "EC2"
   health_check_grace_period = 300
 }
   # Create the scaling policies
@@ -73,16 +73,5 @@ resource "aws_lb_listener" "asg1-lb-listener" {
     target_group_arn = aws_lb_target_group.asg1-tg.arn
   }
 }
-# Create the load balancer security group
-resource "aws_security_group" "asg1-lb-sg" {
-  name = "asg1-lb-sg"
-  vpc_id = var.vpc_id
 
-  ingress {
-    from_port = 80
-    to_port = 80
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
 

@@ -16,3 +16,16 @@ resource "aws_dynamodb_table" "my_table" {
     type = "N"
   }
 }
+
+resource "aws_dynamodb_table" "my_table2" {
+  name           = "MyTable2"
+  billing_mode   = "PROVISIONED"
+  read_capacity  = 15
+  write_capacity = 15
+  hash_key       = "Id"
+
+  attribute {
+    name = "Id"
+    type = "S"
+  }
+}
