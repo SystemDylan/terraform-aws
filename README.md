@@ -1,17 +1,25 @@
-# terraform-aws
-Terraform setup templates to deploy various resources on aws
+# Terraform AWS
 
-This repo contains Terraform configuration examples for the following:
+A collection of Terraform templates for deploying various AWS resources.
 
--Spinning up a base EC2 instance from a premade linux AMI(ec2/ec2.tf) and a custom AMI based off an EBS snapshot(ec2/ec2_ami_restore.tf). The custom AMI has a basic apache webserver installed and listening for easy web dev testing.
+This repository contains Terraform configuration examples for:
 
--Creating aws Virtual Private Cloud with two subnets on separate availability zones, one route table with a connection to an internet gateway, and configurated associations from both subnets to that gateway(vpc/vpc.tf).
+- Creating a base EC2 instance from a premade Linux AMI (ec2/ec2.tf) and a custom AMI based on an EBS snapshot (ec2/ec2_ami_restore.tf). The custom AMI includes a basic Apache web server for easy web development testing.
+- Setting up an AWS Virtual Private Cloud (VPC) with two subnets in separate availability zones, one route table connected to an internet gateway, and configured associations for both subnets to that gateway (vpc/vpc.tf).
+- A reusable module for creating an AMI image from any existing EC2 instance (aws-ami/main.tf).
+- Configuring an Auto Scaling group with an Elastic Load Balancer, Simple Scaling policy, a minimum of 2 instances across two different availability zones, and a maximum of 4 instances (elb/main.tf).
+- Creating a basic DynamoDB table with a composite key and provisioned read/write capacity (dynamodb/dynamodb.tf).
 
--A reusable module that can be used to create an AMI image from any existing EC2 instance(aws-ami/main.tf).
+## Submodule: Fortune of the Day Application
 
--Terraform configuration example for a an autoscaling group with an elastic load balancer configured with SimpleScaling, a minimum of 2 instances on two different availability zones, and a maximum of 4 instances(elb/main.tf).
+This repository includes a submodule containing the source code for a sample application that utilizes the above AWS resources and Terraform configurations. The submodule can be found at the following URL:
 
--Creating a basic Dynamodb with a composite key and provisioned read / write capacity(dynamodb/dynamodb.tf).
+[Fortune of the Day Submodule](https://github.com/SystemDylan/fortune-of-the-day)
 
+You can visit the live web app at:
 
--more to come!
+[Fortune of the Day Web App](http://fortune.systemdylan.com/)
+
+## Future Additions
+
+- More Terraform configurations and use cases to be added
