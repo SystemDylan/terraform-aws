@@ -22,3 +22,9 @@ variable "vpc_id" {
 variable "keyname" {
   type = string
 }
+variable "dns_zone_id" {
+  type = string
+}
+variable "domain_name" {
+  type = string
+}

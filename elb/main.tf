@@ -43,12 +43,19 @@ resource "aws_launch_template" "asg1-lt" {
   instance_type = "t2.micro"
   key_name = var.keyname
   vpc_security_group_ids = [var.security_group1_id]
+#tag specifications to add names to the asg instances
+  tag_specifications {
+    resource_type = "instance"
+    tags = {
+      Name = "asg1-instance"
+    }
+  }
 }
 
-# Create the target group
+# Create the target group - the target group contains the flask app which is listening on port 5000
 resource "aws_lb_target_group" "asg1-tg" {
   name = "asg1-tg"
-  port = 80
+  port = 5000
   protocol = "HTTP"
   vpc_id = var.vpc_id
 }
@@ -62,7 +69,7 @@ resource "aws_lb" "asg1-lb" {
   ]
   security_groups = [var.security_group1_id]
 }
-# Define the listener settings
+# Define the listener settings - Receives traffic on port 80 and then sends to the target group, which is listening on port 5000
 resource "aws_lb_listener" "asg1-lb-listener" {
   load_balancer_arn = aws_lb.asg1-lb.arn
   port = 80
@@ -73,5 +80,11 @@ resource "aws_lb_listener" "asg1-lb-listener" {
     target_group_arn = aws_lb_target_group.asg1-tg.arn
   }
 }
-
-
+#Create a CNAME DNS record and assign point to the DNS name of the auto-scaling group
+resource "aws_route53_record" "app_cname" {
+  zone_id = var.dns_zone_id
+  name    = var.domain_name
+  type    = "CNAME"
+  ttl     = "300"
+  records = [aws_lb.asg1-lb.dns_name]
+}
