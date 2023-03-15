@@ -1,0 +1,3 @@
+[submodule "fortune-of-the-day"]
+	path = fortune-of-the-day
+	url = https://github.com/SystemDylan/fortune-of-the-day.git
