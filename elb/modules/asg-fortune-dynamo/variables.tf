@@ -10,9 +10,6 @@ variable "security_group1_id" {
 variable "fortune_dynamo_ami" {
   type = string
 }
-variable "fortune_SQL_ami" {
-  type = string
-}
 variable "vpc_id" {
   type = string
 }
@@ -23,8 +20,5 @@ variable "dns_zone_id" {
   type = string
 }
 variable "fortune_dynamo_DNS" {
-  type = string
-}
-variable "fortune_SQL_DNS" {
   type = string
 }

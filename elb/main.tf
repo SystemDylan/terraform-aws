@@ -1,90 +1,23 @@
-# Create the autoscaling group
-resource "aws_autoscaling_group" "asg1" {
-  name = "asg1"
-  launch_template {id = aws_launch_template.asg1-lt.id}
-  vpc_zone_identifier = [
-    var.subnet1,
-    var.subnet2
-  ]
-  target_group_arns = [aws_lb_target_group.asg1-tg.arn]
-
-  # Define the autoscaling group settings
-  min_size = 2
-  max_size = 4
-  desired_capacity = 2
-
-  # Define the health check settings
-  health_check_type = "EC2"
-  health_check_grace_period = 300
-}
-  # Create the scaling policies
-resource "aws_autoscaling_policy" "scale-up1" {
-  name = "scale-up1"
-  policy_type = "SimpleScaling"
-  adjustment_type = "ChangeInCapacity"
-  scaling_adjustment = 1
-  cooldown = 300
-  autoscaling_group_name = aws_autoscaling_group.asg1.name
-}
-
-resource "aws_autoscaling_policy" "scale-down1" {
-  name = "scale-down1"
-  policy_type = "SimpleScaling"
-  adjustment_type = "ChangeInCapacity"
-  scaling_adjustment = -1
-  cooldown = 300
-  autoscaling_group_name = aws_autoscaling_group.asg1.name
-}
-
-# Create the launch template
-resource "aws_launch_template" "asg1-lt" {
-  name = "asg1-lt"
-  image_id = var.custom_ami_id
-  instance_type = "t2.micro"
-  key_name = var.keyname
-  vpc_security_group_ids = [var.security_group1_id]
-#tag specifications to add names to the asg instances
-  tag_specifications {
-    resource_type = "instance"
-    tags = {
-      Name = "asg1-instance"
-    }
-  }
-}
-
-# Create the target group - the target group contains the flask app which is listening on port 5000
-resource "aws_lb_target_group" "asg1-tg" {
-  name = "asg1-tg"
-  port = 5000
-  protocol = "HTTP"
+module "asg-fortune-dynamo" {
+  source = "./modules/asg-fortune-dynamo"
+  subnet1 = var.subnet1
+  subnet2 = var.subnet2
+  security_group1_id = var.security_group1_id
+  fortune_dynamo_ami = var.fortune_dynamo_ami
   vpc_id = var.vpc_id
+  keyname = var.keyname
+  dns_zone_id = var.dns_zone_id
+  fortune_dynamo_DNS = var.fortune_dynamo_DNS
 }
 
-# Create the load balancer
-resource "aws_lb" "asg1-lb" {
-  name = "asg1-lb"
-  subnets = [
-    var.subnet1,
-    var.subnet2
-  ]
-  security_groups = [var.security_group1_id]
-}
-# Define the listener settings - Receives traffic on port 80 and then sends to the target group, which is listening on port 5000
-resource "aws_lb_listener" "asg1-lb-listener" {
-  load_balancer_arn = aws_lb.asg1-lb.arn
-  port = 80
-  protocol = "HTTP"
-
-  default_action {
-    type = "forward"
-    target_group_arn = aws_lb_target_group.asg1-tg.arn
-  }
-}
-#Create a CNAME DNS record and assign point to the DNS name of the elastic load balancer
-resource "aws_route53_record" "app_cname" {
-  zone_id = var.dns_zone_id
-  name    = var.domain_name
-  type    = "CNAME"
-  ttl     = "300"
-  records = [aws_lb.asg1-lb.dns_name]
+module "asg-fortune-SQL" {
+  source = "./modules/asg-fortune-SQL"
+  subnet1 = var.subnet1
+  subnet2 = var.subnet2
+  security_group1_id = var.security_group1_id
+  fortune_SQL_ami = var.fortune_SQL_ami
+  vpc_id = var.vpc_id 
+  keyname = var.keyname
+  dns_zone_id = var.dns_zone_id
+  fortune_SQL_DNS = var.fortune_SQL_DNS
 }
