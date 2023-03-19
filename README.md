@@ -1,6 +1,7 @@
 # Terraform AWS
 
 A collection of Terraform templates for deploying various AWS resources.
+Python and Shell scripting are used for environment management where Terraform cannot.
 
 This repository contains Terraform configuration examples for:
 
