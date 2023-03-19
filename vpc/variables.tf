@@ -13,3 +13,9 @@ variable "subnet2" {
 variable "main_block" {
   type = string
 }
+variable "publicip" {
+  type = string
+}
+variable "localsubnet" {
+  type = string
+}

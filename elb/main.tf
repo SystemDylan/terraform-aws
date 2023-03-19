@@ -80,7 +80,7 @@ resource "aws_lb_listener" "asg1-lb-listener" {
     target_group_arn = aws_lb_target_group.asg1-tg.arn
   }
 }
-#Create a CNAME DNS record and assign point to the DNS name of the auto-scaling group
+#Create a CNAME DNS record and assign point to the DNS name of the elastic load balancer
 resource "aws_route53_record" "app_cname" {
   zone_id = var.dns_zone_id
   name    = var.domain_name
