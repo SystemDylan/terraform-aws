@@ -20,11 +20,12 @@ You can visit the live web app at:
 
 [Fortune of the Day Web App](http://fortune.systemdylan.com/)
 
-- Fortune of the Day Web App reworked to use a VPN connection to a local DB instead of Amazon DynamoDB:
+Fortune of the Day Web App reworked to use a VPN connection to a local DB instead of Amazon DynamoDB:
 
 [SQL Fortunne of the Day Web App](http://sqlfortune.systemdylan.com/)
 
-- Repo Containing Terraform management config and python DB management scripts for the SQL Fortune of the Day Rework:
+Repo Containing Terraform management config and python DB management scripts for the SQL Fortune of the Day Rework:
+
 [terraform-proxmox](https://github.com/SystemDylan/terraform-proxmox)
 
 ## Future Additions
