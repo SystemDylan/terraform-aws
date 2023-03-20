@@ -69,14 +69,16 @@ resource "aws_lb" "fortune-dynamo-lb" {
   ]
   security_groups = [var.security_group1_id]
 }
-# Define the listener settings - Receives traffic on port 80 and then sends to the target group, which is listening on port 5000
-resource "aws_lb_listener" "fortune-dynamo-lb-listener" {
+# Define the listener settings - Receives traffic on port 443 and then sends to the target group, which is listening on port 5000
+resource "aws_lb_listener" "fortune_dynamo_lb_listener" {
   load_balancer_arn = aws_lb.fortune-dynamo-lb.arn
-  port = 80
-  protocol = "HTTP"
+  port              = 443
+  protocol          = "HTTPS"
+  ssl_policy        = "ELBSecurityPolicy-TLS13-1-2-2021-06"
+  certificate_arn   = var.certificate_arn
 
   default_action {
-    type = "forward"
+    type             = "forward"
     target_group_arn = aws_lb_target_group.fortune-dynamo-tg.arn
   }
 }
@@ -87,4 +89,16 @@ resource "aws_route53_record" "app_cname" {
   type    = "CNAME"
   ttl     = "300"
   records = [aws_lb.fortune-dynamo-lb.dns_name]
+}
+
+# Associate the SSL certificate with the Load Balancer Listener for the fortune-dynamo application
+resource "aws_lb_listener_certificate" "fortune_dynamo_lb_listener_certificate" {
+  listener_arn    = aws_lb_listener.fortune_dynamo_lb_listener.arn
+  certificate_arn = var.certificate_arn
+}
+
+# Output the ARN of the created fortune-dynamo load balancer
+output "load_balancer_arn" {
+  description = "The ARN of the created fortune-dynamo load balancer"
+  value       = aws_lb.fortune-dynamo-lb.arn
 }

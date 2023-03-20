@@ -28,3 +28,6 @@ variable "fortune_dynamo_DNS" {
 variable "fortune_SQL_DNS" {
   type = string
 }
+variable "domain_name" {
+  type = string
+}

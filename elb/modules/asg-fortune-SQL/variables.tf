@@ -22,3 +22,6 @@ variable "dns_zone_id" {
 variable "fortune_SQL_DNS" {
   type = string
 }
+variable "certificate_arn" {
+  type = string
+}
