@@ -81,6 +81,22 @@ resource "aws_lb_listener" "fortune_SQL_lb_listener" {
     target_group_arn = aws_lb_target_group.fortune-SQL-tg.arn
   }
 }
+# Define a second listener for port 80 with a redirect action to port 443
+resource "aws_lb_listener" "fortune_SQL_lb_listener_redirect" {
+  load_balancer_arn = aws_lb.fortune-SQL-lb.arn
+  port              = 80
+  protocol          = "HTTP"
+
+  default_action {
+    type = "redirect"
+
+    redirect {
+      port        = "443"
+      protocol    = "HTTPS"
+      status_code = "HTTP_301" #output status code 301 if port 80 is visited
+    }
+  }
+}
 #Create a CNAME DNS record and assign point to the DNS name of the elastic load balancer
 resource "aws_route53_record" "app_cname" {
   zone_id = var.dns_zone_id
