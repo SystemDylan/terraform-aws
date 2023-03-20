@@ -10,6 +10,8 @@ This repository contains Terraform configuration examples for:
 - A reusable module for creating an AMI image from any existing EC2 instance (aws-ami/main.tf).
 - Configuring an Auto Scaling group with an Elastic Load Balancer, Simple Scaling policy, a minimum of 2 instances across two different availability zones, and a maximum of 4 instances (elb/main.tf).
 - Creating a basic DynamoDB table with a composite key and provisioned read/write capacity (dynamodb/dynamodb.tf).
+- Using Terraform modules to create reusable configurations (elb/modules)
+- much more and more to come
 
 ## Submodule: Fortune of the Day Application
 
