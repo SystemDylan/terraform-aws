@@ -19,11 +19,11 @@ This repository includes a submodule containing the source code for a sample app
 
 You can visit the live web app at:
 
-[Fortune of the Day Web App](http://fortune.systemdylan.com/)
+[Fortune of the Day Web App](https://fortune.systemdylan.com/)
 
 Fortune of the Day Web App reworked to use a VPN connection to a local DB instead of Amazon DynamoDB:
 
-[SQL Fortunne of the Day Web App](http://sqlfortune.systemdylan.com/)
+[SQL Fortunne of the Day Web App](https://sqlfortune.systemdylan.com/)
 
 Repo Containing Terraform management config and python DB management scripts for the SQL Fortune of the Day Rework:
 
