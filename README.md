@@ -11,7 +11,8 @@ This repository contains Terraform configuration examples for:
 - Configuring an Auto Scaling group with an Elastic Load Balancer, Simple Scaling policy, a minimum of 2 instances across two different availability zones, and a maximum of 4 instances (elb/main.tf).
 - Creating a basic DynamoDB table with a composite key and provisioned read/write capacity (dynamodb/dynamodb.tf).
 - Using Terraform modules to create reusable configurations (elb/modules)
-- much more and more to come
+- Creat Lambda Functions and Cloudwatch schedules which are used for instance management to reduce overall costs(lambda/main.tf)
+- much more
 
 ## Submodule: Fortune of the Day Application
 
