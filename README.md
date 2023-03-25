@@ -15,6 +15,8 @@ This repository contains Terraform configuration examples for:
 - much more
 
 ## Submodule: Fortune of the Day Application
+UPDATE: THESE SITES ARE NOW ONLY ACTIVE MON-FRI 7AM-5PM CST
+aws lambda functions provision and de-provision instanced to the autoscaling groups in accordance with a CloudWatch Rules. This is to reduce overall costs.
 
 This repository includes a submodule containing the source code for a sample application that utilizes the above AWS resources and Terraform configurations. The submodule can be found at the following URL:
 
